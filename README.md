@@ -23,6 +23,18 @@ sudo apt-get -y install build-essential asciidoc binutils bzip2 curl gawk gettex
 
 6. 编译完成后输出路径：openwrt19/bin/targets
 
+cd openwrt19
+git pull
+./scripts/feeds update -a && ./scripts/feeds install -a
+make defconfig
+make -j8 download
+make -j$(($(nproc) + 1)) V=s
+
+如果需要重新配置：
+rm -rf ./tmp && rm -rf .config
+make menuconfig
+make -j$(($(nproc) + 1)) V=s
+
 你可以自由使用，但源码编译二次发布请注明我的 GitHub 仓库链接。谢谢合作！
  
  -----------------------------------------------------
